@@ -1,0 +1,30 @@
+# Portainer-Stack: holt bot.py bei jedem Start aktuell von GitHub.
+# Die Werte (${...}) kommen aus den Environment variables des Stacks.
+services:
+  bern-whitelist-bot:
+    image: python:3.12-slim
+    container_name: bern-whitelist-bot
+    restart: unless-stopped
+    working_dir: /app
+    entrypoint: ["sh", "-c"]
+    command:
+      - |
+        set -e
+        pip install --no-cache-dir -q "discord.py>=2.4,<3"
+        python -c "import urllib.request; urllib.request.urlretrieve('https://raw.githubusercontent.com/kranoxio/MinecraftMap01/master/whitelist-bot/bot.py', 'bot.py')"
+        exec python -u bot.py
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      GUILD_ID: ${GUILD_ID}
+      SPIELER_ROLE_ID: ${SPIELER_ROLE_ID}
+      FALLBACK_CHANNEL_ID: ${FALLBACK_CHANNEL_ID}
+      LOG_CHANNEL_ID: ${LOG_CHANNEL_ID}
+      RCON_HOST: ${RCON_HOST}
+      RCON_PORT: ${RCON_PORT}
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      SERVER_ADDRESS: ${SERVER_ADDRESS}
+    volumes:
+      - whitelist-data:/data
+
+volumes:
+  whitelist-data:
