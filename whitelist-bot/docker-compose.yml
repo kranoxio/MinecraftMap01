@@ -1,0 +1,11 @@
+services:
+  bern-whitelist-bot:
+    image: python:3.12-slim
+    container_name: bern-whitelist-bot
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "pip install --no-cache-dir -q 'discord.py>=2.4,<3' && python -u bot.py"
+    env_file: bot.env
+    volumes:
+      - ./bot.py:/app/bot.py:ro
+      - ./data:/data
