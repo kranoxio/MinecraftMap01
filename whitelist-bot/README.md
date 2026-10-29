@@ -9,6 +9,11 @@ er automatisch wieder von der Whitelist.
 |---|---|---|
 | `/minecraft` | Spieler | Minecraft-Namen eintragen oder ändern |
 | `/whitelist-knopf` | Admins | Postet den Eintragen-Knopf im aktuellen Kanal |
+| `/spielerliste` | Admins/Mods | Zeigt, welcher Discord-Account zu welchem Minecraft-Namen gehört |
+
+Neue Mitglieder erscheinen im Log-Kanal mit den Knöpfen **Freischalten** (gibt die Rolle Spieler)
+und **Ablehnen** (kickt). Dafür braucht der Bot die Rechte *Rollen verwalten* und *Mitglieder kicken*,
+und seine Rolle muss in der Rollenliste **über** ⛏️ Spieler stehen.
 
 ## Installation (Docker, z. B. UGREEN NAS)
 

@@ -110,6 +110,7 @@ class WhitelistBot(discord.Client):
 
     async def setup_hook(self):
         self.add_view(NameButtonView())  # Knoepfe funktionieren auch nach einem Neustart
+        self.add_dynamic_items(ApproveButton, RejectButton)
         guild = discord.Object(id=GUILD_ID)
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
@@ -233,6 +234,82 @@ async def prompt_member(member):
         await channel.send(f"{member.mention}\n{PROMPT_TEXT}", view=NameButtonView())
 
 
+# --- Freischaltung neuer Mitglieder durch das Team ---
+
+async def check_team_permission(interaction):
+    if interaction.user.guild_permissions.manage_roles:
+        return True
+    await interaction.response.send_message("❌ Nur Admins und Moderatoren dürfen das.", ephemeral=True)
+    return False
+
+
+class ApproveButton(discord.ui.DynamicItem[discord.ui.Button], template=r"bern:approve:(?P<uid>\d+)"):
+    def __init__(self, user_id: int):
+        super().__init__(discord.ui.Button(label="Freischalten", emoji="✅", style=discord.ButtonStyle.success,
+                                           custom_id=f"bern:approve:{user_id}"))
+        self.user_id = user_id
+
+    @classmethod
+    async def from_custom_id(cls, interaction, item, match):
+        return cls(int(match["uid"]))
+
+    async def callback(self, interaction: discord.Interaction):
+        if not await check_team_permission(interaction):
+            return
+        member = await get_member(self.user_id)
+        if member is None:
+            await interaction.response.edit_message(content=f"ℹ️ <@{self.user_id}> ist nicht mehr auf dem Discord.", view=None)
+            return
+        try:
+            await member.add_roles(discord.Object(id=SPIELER_ROLE_ID), reason=f"Freigeschaltet von {interaction.user}")
+        except discord.Forbidden:
+            await interaction.response.send_message(
+                "❌ Mir fehlt das Recht **Rollen verwalten**, oder meine Rolle steht unter **⛏️ Spieler**.", ephemeral=True)
+            return
+        await interaction.response.edit_message(
+            content=f"✅ {member.mention} wurde von {interaction.user.mention} freigeschaltet.", view=None)
+
+
+class RejectButton(discord.ui.DynamicItem[discord.ui.Button], template=r"bern:reject:(?P<uid>\d+)"):
+    def __init__(self, user_id: int):
+        super().__init__(discord.ui.Button(label="Ablehnen (kicken)", emoji="❌", style=discord.ButtonStyle.danger,
+                                           custom_id=f"bern:reject:{user_id}"))
+        self.user_id = user_id
+
+    @classmethod
+    async def from_custom_id(cls, interaction, item, match):
+        return cls(int(match["uid"]))
+
+    async def callback(self, interaction: discord.Interaction):
+        if not await check_team_permission(interaction):
+            return
+        member = await get_member(self.user_id)
+        if member is not None:
+            try:
+                await member.kick(reason=f"Abgelehnt von {interaction.user}")
+            except discord.Forbidden:
+                await interaction.response.send_message("❌ Mir fehlt das Recht **Mitglieder kicken**.", ephemeral=True)
+                return
+        await interaction.response.edit_message(
+            content=f"❌ <@{self.user_id}> wurde von {interaction.user.mention} abgelehnt.", view=None)
+
+
+@bot.event
+async def on_member_join(member: discord.Member):
+    if member.guild.id != GUILD_ID or member.bot:
+        return
+    channel = bot.get_channel(LOG_CHANNEL_ID) if LOG_CHANNEL_ID else None
+    if channel is None:
+        return
+    view = discord.ui.View(timeout=None)
+    view.add_item(ApproveButton(member.id))
+    view.add_item(RejectButton(member.id))
+    created = int(member.created_at.timestamp())
+    await channel.send(f"👋 **Neues Mitglied:** {member.mention} (`{member.name}`)\n"
+                       f"Discord-Account erstellt <t:{created}:R>. Freischalten?",
+                       view=view, allowed_mentions=discord.AllowedMentions.none())
+
+
 @bot.event
 async def on_member_update(before: discord.Member, after: discord.Member):
     if after.guild.id != GUILD_ID or after.bot:
@@ -261,6 +338,18 @@ async def post_button(interaction: discord.Interaction):
     await interaction.channel.send("⛏️ **Neu hier?** Trag deinen Minecraft-Namen ein, um auf den Server zu kommen:",
                                    view=NameButtonView())
     await interaction.response.send_message("Knopf gepostet.", ephemeral=True)
+
+
+@bot.tree.command(name="spielerliste", description="Zeigt, welcher Discord-Account zu welchem Minecraft-Namen gehört")
+@app_commands.default_permissions(manage_roles=True)
+async def player_list(interaction: discord.Interaction):
+    data = load_data()
+    if not data:
+        await interaction.response.send_message("Noch niemand eingetragen.", ephemeral=True)
+        return
+    lines = [f"• <@{uid}> → **{name}**" for uid, name in sorted(data.items(), key=lambda x: x[1].lower())]
+    text = f"**{len(lines)} Spieler eingetragen:**\n" + "\n".join(lines)
+    await interaction.response.send_message(text[:2000], ephemeral=True)
 
 
 if __name__ == "__main__":
