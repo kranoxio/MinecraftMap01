@@ -1,0 +1,13 @@
+filename = 'modmenu-20.0.3.jar'
+name = 'Mod Menu'
+side = 'client'
+
+[download]
+hash = 'c8224aa7a460d0c56ccb9978a112e4ad0d3eb17e2796e0c468a2392d220749f4f602838a11b3666145462c26078a879ab8a2fc177aa440f58e189c92a0088d6e'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/mOgUt4GM/versions/iRo7AZXf/modmenu-20.0.3.jar'
+
+[update.modrinth]
+mod-id = 'mOgUt4GM'
+version = 'iRo7AZXf'

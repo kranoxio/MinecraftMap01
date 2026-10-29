@@ -1,0 +1,13 @@
+filename = 'mru-1.0.44+26.2-fabric.jar'
+name = 'MRU'
+side = 'both'
+
+[download]
+hash = 'c4bc62c4f78270d63b60122a32cd242f2771ec1e37738572418aa4b39dab2dca18887eef4debdcc78aed9a32a2a689958253b0518cb24c81d672047a9e1f54d5'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/SNVQ2c0g/versions/GQKA7SfX/mru-1.0.44%2B26.2-fabric.jar'
+
+[update.modrinth]
+mod-id = 'SNVQ2c0g'
+version = 'GQKA7SfX'

@@ -1,0 +1,13 @@
+filename = 'cape-provider-5.5.1.jar'
+name = 'Cape Provider'
+side = 'client'
+
+[download]
+hash = '092128ce6c596ce825cd4fa12705d979979684bd55db8330adc179aa666a4f28998e334d870d70ea4519d83596218f0c1fde0bd92ba79b3dd11def076801e089'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/orXAsira/versions/Puw7YiUS/cape-provider-5.5.1.jar'
+
+[update.modrinth]
+mod-id = 'orXAsira'
+version = 'Puw7YiUS'

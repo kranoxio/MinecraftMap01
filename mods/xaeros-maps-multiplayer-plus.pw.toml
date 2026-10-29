@@ -1,0 +1,13 @@
+filename = 'xmmp-1.2.3+26.2-fabric.jar'
+name = "Xaero's Maps: Multiplayer+"
+side = 'both'
+
+[download]
+hash = '439eb878a829d11955bd1566e3c016316001b765f13b5b6c212cb96197bb1049c9d896e64bd88fe1326a442385af55ea14c7e301effd60ae8de6ba983f114952'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/stTaMuWa/versions/b3lREphO/xmmp-1.2.3%2B26.2-fabric.jar'
+
+[update.modrinth]
+mod-id = 'stTaMuWa'
+version = 'b3lREphO'

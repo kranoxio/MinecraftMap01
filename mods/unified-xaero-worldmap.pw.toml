@@ -1,0 +1,13 @@
+filename = 'unified-xaero-worldmap-2.0.4+26.2-fabric.jar'
+name = 'Unified Xaero Worldmap'
+side = 'both'
+
+[download]
+hash = '5b74a461d16956078adbd50f7e246073b28eb548'
+hash-format = 'sha1'
+mode = 'metadata:curseforge'
+url = ''
+
+[update.curseforge]
+file-id = 9232561
+project-id = 1704237

@@ -1,0 +1,13 @@
+name = "Bern Map Optimiert"
+author = "kranoxio"
+version = "1.0.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "ec8218f3c5292a1beb04cce7c76341f9ce4f37191c5eaa3c7bda1c05474847a6"
+
+[versions]
+fabric = "0.19.5"
+minecraft = "26.2"
