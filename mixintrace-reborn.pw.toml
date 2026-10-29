@@ -1,0 +1,18 @@
+filename = 'mixintrace-1.0-26.1-universal.jar'
+name = 'MixinTrace Reborn'
+side = 'both'
+x-prismlauncher-dependencies = []
+x-prismlauncher-loaders = [ 'neoforge', 'fabric' ]
+x-prismlauncher-mc-versions = [ '26.1', '26.1.1', '26.1.2' ]
+x-prismlauncher-release-type = 'release'
+x-prismlauncher-version-number = '1.0-26.1'
+
+[download]
+hash = 'd1b4762208b4d056b1a4313dbf661a5116d5614c3d8f90ff64c1977a7581a438067869688b34bca6e1f8068ca47abddc599dcbd64760e30a7b33bf6f4b5b220c'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/Ok6FyXJ9/versions/j3SeQVjR/mixintrace-1.0-26.1-universal.jar'
+
+[update.modrinth]
+mod-id = 'Ok6FyXJ9'
+version = 'j3SeQVjR'

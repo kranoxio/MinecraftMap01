@@ -1,0 +1,21 @@
+filename = 'shogi-fabric-26.2-26.2.0.8.jar'
+name = 'Shogi'
+side = 'both'
+x-prismlauncher-loaders = [ 'fabric' ]
+x-prismlauncher-mc-versions = [ '26.2' ]
+x-prismlauncher-release-type = 'release'
+x-prismlauncher-version-number = '26.2.0.8+fabric-26.2'
+
+[download]
+hash = '87355753211cf4037ec5dda3aeb50a9d5cfe6de5839e2bba9dfcde2911a3268834a913765b6011599674cce3961314c9d8d78f2cdc242113ef36f70db0910570'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/bi4iCmsw/versions/kjPMnetX/shogi-fabric-26.2-26.2.0.8.jar'
+
+[update.modrinth]
+mod-id = 'bi4iCmsw'
+version = 'kjPMnetX'
+
+[[x-prismlauncher-dependencies]]
+addonId = 'P7dR8mSH'
+type = 'REQUIRED'

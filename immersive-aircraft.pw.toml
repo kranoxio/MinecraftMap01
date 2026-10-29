@@ -1,0 +1,21 @@
+filename = 'immersive_aircraft-fabric-1.7.0+26.2.jar'
+name = 'Immersive Aircraft'
+side = 'both'
+x-prismlauncher-loaders = [ 'fabric' ]
+x-prismlauncher-mc-versions = [ '26.2' ]
+x-prismlauncher-release-type = 'release'
+x-prismlauncher-version-number = '1.7.0+26.2'
+
+[download]
+hash = '45c254b9f0271364b6066631bb899b4559f8569c2f479b938cc246d869a96c214bf3b4751432150758f628925b0b430b069a88dbd665ccc49360c3ed0c9c003c'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/x3HZvrj6/versions/DWFVycGK/immersive_aircraft-fabric-1.7.0%2B26.2.jar'
+
+[update.modrinth]
+mod-id = 'x3HZvrj6'
+version = 'DWFVycGK'
+
+[[x-prismlauncher-dependencies]]
+addonId = 'P7dR8mSH'
+type = 'REQUIRED'
